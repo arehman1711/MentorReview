@@ -248,7 +248,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 **Dependencies:** JPA (Java Persistence API), Lombok, SLF4J (Simple Logging Facade for Java), Spring Boot DevTools, Spring Boot Validation.
 
-**API Technology:** RESTful API
+**API Technology:** REST API
 
 **IDE:** IntelliJ IDEA
 
