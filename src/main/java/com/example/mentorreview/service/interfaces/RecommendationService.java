@@ -4,7 +4,7 @@ import com.example.mentorreview.entity.RecommendStudent;
 
 public interface RecommendationService {
 
-    RecommendStudent recommendStudent(Long mentorId, Long userId, String recommendationText);
+    String recommendStudent(Long mentorId, Long userId, String recommendationText);
 
     String getRecommendationByLink(String shareableLink);
 }

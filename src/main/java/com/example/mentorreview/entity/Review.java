@@ -15,6 +15,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int rating;
 
     @Size(max = 50, message = "content must be less than 50 words")
     private String reviewText;
@@ -25,7 +26,6 @@ public class Review {
 
     @ManyToOne
     private User user;
-
 
 }
 

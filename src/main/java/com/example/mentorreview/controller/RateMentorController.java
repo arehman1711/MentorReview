@@ -8,24 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/rate-mentor")
-
 public class RateMentorController {
-    @Autowired
-    private MentorService mentorService;
 
-    @PostMapping("/{mentorId}")
-    public ResponseEntity<String> rateMentor(
-            @PathVariable("mentorId") Long mentorId,
-            @RequestParam("rating") int rating
-    ) {
-        log.info("Received rating for mentor ID {}: {}", mentorId, rating);
-        try {
-            mentorService.rateMentor(mentorId, rating);
-            return ResponseEntity.ok("Mentor rated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to rate mentor");
-        }
-    }
 }
 

@@ -16,7 +16,7 @@ public class RecommendationController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<?> getRecommendationByLink(@PathVariable String uuid) {
-        String shareableLink = "https://your-website.com/recommendations/" + uuid;
+        String shareableLink = "http://localhost:8080/api/recommendations/" + uuid;
         String recommendationText = recommendationService.getRecommendationByLink(shareableLink);
         log.info("recommendationText {}", recommendationText);
         if (recommendationText != null) {
@@ -28,18 +28,16 @@ public class RecommendationController {
         }
     }
 
-
     @PostMapping
     public ResponseEntity<String> createRecommendation(@RequestParam Long mentorId, @RequestParam Long userId, @RequestParam String recommendationText) {
         log.info("userId {}", userId);
         try {
-            recommendationService.recommendStudent(mentorId, userId, recommendationText);
-            return ResponseEntity.ok("Recommendation created successfully");
+            String shareableLink = recommendationService.recommendStudent(mentorId, userId, recommendationText);
+            return ResponseEntity.ok("Recommendation created successfully. Shareable Link: " + shareableLink);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to create recommendation");
         }
     }
 }
-
 
 

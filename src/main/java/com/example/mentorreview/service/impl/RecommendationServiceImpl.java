@@ -24,7 +24,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
 
     @Override
-    public RecommendStudent recommendStudent(Long mentorId, Long userId, String recommendationText) {
+    public String recommendStudent(Long mentorId, Long userId, String recommendationText) {
         // Find the mentor and validate inputs
         Mentor mentor = mentorRepository.findById(mentorId)
                 .orElseThrow(() -> {
@@ -46,19 +46,29 @@ public class RecommendationServiceImpl implements RecommendationService {
         String shareableLink = generateShareableLink();
         recommendedStudent.setShareableLink(shareableLink);
 
-        log.info("Recommendation saved for mentor ID: {}, student ID: {},Letter of appreciation: {}", mentorId, userId,recommendationText);
-        return recommendStudentRepository.save(recommendedStudent);
+        // Log the shareable link
+        log.info("Recommendation saved for mentor ID: {}, student ID: {}, Letter of appreciation: {}. Shareable Link: {}", mentorId, userId, recommendationText, shareableLink);
+
+        // Save the recommendation
+        recommendStudentRepository.save(recommendedStudent);
+
+        return shareableLink;
     }
 
     @Override
     public String getRecommendationByLink(String shareableLink) {
+        // Log the shareable link for debugging
+        log.info("Attempting to retrieve recommendation for link: {}", shareableLink);
+
         // Find the recommendation by shareableLink
         RecommendStudent recommendation = recommendStudentRepository.findByShareableLink(shareableLink);
 
         if (recommendation == null) {
-            // Handle the case where the link is not found
+            // Log the actual shareable link received for debugging purposes
             log.error("Recommendation not found for link: {}", shareableLink);
-            throw new EntityNotFoundException("Recommendation not found for the provided link");
+
+            // Throw a more informative exception including the provided shareable link
+            throw new EntityNotFoundException("Recommendation not found for the provided link: " + shareableLink);
         }
 
         log.info("Retrieved recommendation for link: {}", shareableLink);
@@ -67,8 +77,9 @@ public class RecommendationServiceImpl implements RecommendationService {
         return recommendation.getRecommendationText();
     }
 
+
     private String generateShareableLink() {
         String uniqueLink = UUID.randomUUID().toString();
-        return "https://your-website.com/recommendations/" + uniqueLink;
+        return "http://localhost:8080/api/recommendations/" + uniqueLink;
     }
 }
