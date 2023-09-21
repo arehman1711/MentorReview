@@ -28,8 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     MentorServiceImpl mentorService;
     @Override
-    public void reviewMentor(Long userId, Long mentorId, String content) {
+    public void reviewMentor(Long userId, Long mentorId,int rating, String content) {
         // Find the user, mentor, and validate rating
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> {
                     log.error("User not found for ID: {}", userId);
@@ -41,21 +42,29 @@ public class ReviewServiceImpl implements ReviewService {
                     log.error("Mentor not found for ID: {}", mentorId);
                     return new EntityNotFoundException("Mentor not found");
                 });
-
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5.");
+        }
         // Create and save the review
+
         Review review = new Review();
         review.setUser(user);
         review.setMentor(mentor);
+        review.setRating(rating);
         review.setReviewText(content);
+      reviewRepository.save(review);
 
-        reviewRepository.save(review);
-
-        // Calculate and update the mentor's overall rating
+            // Calculate and update the mentor's overall rating
         double newOverallRating = mentorService.calculateNewOverallRating(mentor);
+
+        // Log the new rating value
+        log.info("New overall rating for mentor with ID {}: {}", mentorId, newOverallRating);
+        // Update the mentor's overall rating
         mentor.setOverallRating(newOverallRating);
         mentorRepository.save(mentor);
 
-        log.info("Review saved for user ID: {}, mentor ID: {}, review: {}", userId, mentorId,content);
+        log.info("Review saved for  mentor ID: {}, user ID: {},rating ID: {}, review: {}",mentorId,userId,rating,content);
+
     }
 }
 

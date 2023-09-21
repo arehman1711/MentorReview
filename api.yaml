@@ -1,0 +1,202 @@
+openapi: 3.0.1
+info:
+  title: Sample API
+  description: Sample API for reviewing mentors, users, and recommendations
+  version: '1.0'
+paths:
+  /api/review-mentor:
+    post:
+      summary: Submit a mentor review
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: User ID
+        - name: mentorId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Mentor ID
+        - name: review
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Review content
+        - name: rating
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Rating (1-5)
+      responses:
+        '200':
+          description: Review submitted successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Failed to submit review
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/users:
+    post:
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/recommendations/{uuid}:
+    get:
+      summary: Get a recommendation by UUID
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: UUID of the recommendation
+      responses:
+        '200':
+          description: Recommendation text
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Recommendation not found
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/recommendations:
+    post:
+      summary: Create a recommendation
+      parameters:
+        - name: mentorId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Mentor ID
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: User ID
+        - name: recommendationText
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Recommendation text
+      responses:
+        '200':
+          description: Recommendation created successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Failed to create recommendation
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/mentors/create:
+    post:
+      summary: Create a mentor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentor'
+      responses:
+        '200':
+          description: Mentor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+  /api/get-mentor-details/byrating/{rating}:
+    get:
+      summary: Get mentors by rating
+      parameters:
+        - name: rating
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Rating (1-5)
+      responses:
+        '200':
+          description: List of mentors with the specified rating
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentor'
+        '404':
+          description: No mentors found with the specified rating
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User ID
+        name:
+          type: string
+          description: User name
+    Mentor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Mentor ID
+        name:
+          type: string
+          description: Mentor name
+        overallRating:
+          type: number
+          description: Overall mentor rating
+        reviews:
+          type: array
+          description: Mentor reviews
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Review ID
+              rating:
+                type: integer
+                description: Review rating
+              reviewText:
+                type: string
+                description: Review text
+              user:
+                $ref: '#/components/schemas/User'

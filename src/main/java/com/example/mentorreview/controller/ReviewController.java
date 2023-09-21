@@ -18,11 +18,15 @@ public class ReviewController {
     public ResponseEntity<String> reviewMentor(
             @RequestParam Long userId,
             @RequestParam Long mentorId,
-            @RequestParam String content
+            @RequestParam String review,
+            @RequestParam int rating
+
 
     ) {
+        log.info("Received review for mentor ID: {}", mentorId);
         try {
-            reviewService.reviewMentor(userId, mentorId, content);
+            reviewService.reviewMentor(userId, mentorId,rating, review);
+
             return ResponseEntity.ok("Review submitted successfully");
         } catch (Exception e) {
 
