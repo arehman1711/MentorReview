@@ -2,7 +2,7 @@
 # Mentor Review 
 
 
-The Mentor Review API is a comprehensive backend system designed to empower mentor-student interactions, facilitate reviews, enable mentor recommendations (Letters of Appreciation), and manage mentorship within a web application. This RESTful API offers a wide range of endpoints to support various features, enhancing the overall mentorship experience.
+The Mentor Review API is a comprehensive backend system designed to empower mentor-student interactions, facilitate reviews, enable mentor recommendations (Letters of Appreciation), and manage mentorship within a web application. This REST API offers a wide range of endpoints to support various features, enhancing the overall mentorship experience.
 
 
 
