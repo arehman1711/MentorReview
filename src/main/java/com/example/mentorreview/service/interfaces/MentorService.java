@@ -6,6 +6,7 @@ import java.util.List;
 public interface MentorService {
     List<Mentor> getMentorsByRating(int rating);
 
+
     public double calculateNewOverallRating(Mentor mentor);
 
     Mentor saveMentor(Mentor mentor);

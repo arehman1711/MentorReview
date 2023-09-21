@@ -1,6 +1,7 @@
 package com.example.mentorreview.service.impl;
 
 import com.example.mentorreview.entity.Mentor;
+
 import com.example.mentorreview.entity.Review;
 import com.example.mentorreview.repository.MentorRepository;
 import com.example.mentorreview.repository.ReviewRepository;
@@ -22,7 +23,6 @@ public class MentorServiceImpl implements MentorService {
     UserRepository userRepository;
     @Autowired
     ReviewRepository reviewRepository;
-
 
     @Override
     public List<Mentor> getMentorsByRating(int rating) {
@@ -57,6 +57,7 @@ public class MentorServiceImpl implements MentorService {
         // Round the average rating to the nearest whole number
         return Math.round(averageRating);
     }
+
     @Override
     public Mentor saveMentor(Mentor mentor) {
         mentorRepository.save(mentor);

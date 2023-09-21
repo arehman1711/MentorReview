@@ -16,7 +16,9 @@ public class RecommendationController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<?> getRecommendationByLink(@PathVariable String uuid) {
+
         String shareableLink = "http://localhost:8080/api/recommendations/" + uuid;
+
         String recommendationText = recommendationService.getRecommendationByLink(shareableLink);
         log.info("recommendationText {}", recommendationText);
         if (recommendationText != null) {
@@ -27,6 +29,7 @@ public class RecommendationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+
 
     @PostMapping
     public ResponseEntity<String> createRecommendation(@RequestParam Long mentorId, @RequestParam Long userId, @RequestParam String recommendationText) {

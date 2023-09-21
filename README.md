@@ -8,6 +8,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 
 
+
 ## REST API
 ### User Management
 ### Create User
@@ -71,6 +72,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
   | `userId` (Long) |  ID of the user submitting the review. |
+
    | `mentorId` (long) | ID of the mentor being reviewed. |
    | `rating` (int) |user give a rating to a mentor out of 5 stars. |
    | `review` (String) | Review content. |
@@ -97,6 +99,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
+
   | `mentorId` (Long) |  ID of the mentor. |
    | `userId` (long) | ID of the user creating the recommendation.|
    | `recommendationText` (String) | Recommendation content. |
@@ -122,6 +125,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
+
   |`{sharable Link}` (String)|  Unique shareable link. |
 
    
@@ -130,6 +134,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 ```http
 "An exceptional student, demonstrating remarkable dedication and academic excellence"
+
 
 ```
 #### Response Example (Error):
@@ -156,6 +161,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 ```http
 [
+
     {
         "id": 1,
         "name": "Abdur Rehman",
@@ -226,8 +232,10 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 **API Technology:** REST API
 
+
 **IDE:** IntelliJ IDEA
 
 **Version Control:** Git, GitHub
 
 **API Testing:** Postman
+
