@@ -13,7 +13,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 ### Create User
 
 ```http
-  POST /api/users
+  "POST /api/users"
 
 ```
 
@@ -37,7 +37,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 #### Create Mentor
 
 ```http
-  POST /api/mentors/create
+  "POST /api/mentors/create"
 
 ```
 
@@ -65,7 +65,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 
 ```http
-  POST /api/review-mentor
+  "POST /api/review-mentor"
 
 ```
 | Request Parameters  | Description                       |
@@ -91,20 +91,20 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 
 ```http
-  POST /api/recommendations
+  "POST /api/recommendations"
 
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
-  | `userId` (Long) |  ID of the mentor. |
-   | `mentorId` (long) | ID of the user creating the recommendation.|
+  | `mentorId` (Long) |  ID of the mentor. |
+   | `userId` (long) | ID of the user creating the recommendation.|
    | `recommendationText` (String) | Recommendation content. |
 
 
 #### Response Example (Success):
 
 ```http
-"Recommendation created successfully"
+"Recommendation created successfully. Shareable Link: http://localhost:8080/api/recommendations/54db52db-1b7b-48af-98cd-393f6e7ba006"
 ```
 #### Response Example (Error):
 
@@ -116,19 +116,19 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 
 ```http
-  GET /api/recommendations/{uuid}
+  "GET /api/recommendations/{Shareable Link}"
 
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
-  | `{uuid}` (String)|  Unique shareable link. |
+  |`{sharable Link}` (String)|  Unique shareable link. |
 
    
 
 #### Response Example (Success):
 
 ```http
-"An exceptional student, demonstrating remarkable dedication and academic excellence.."
+"An exceptional student, demonstrating remarkable dedication and academic excellence"
 
 ```
 #### Response Example (Error):
@@ -137,38 +137,12 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 "Recommendation not found for the provided link"
 
 ```
-### Rating Management
-####  Rate a mentor(user should be able to give a rating to a mentor out of 5 stars. And after the rating the overall rating of the mentor should also change).
-
-```http
-  GET /api/rate-mentor/{mentorId}
-
-```
-| Request Parameters  | Description                       |
- :------- | :-------------------------------- |
-  | `{mentorId}` (Long)|  ID of the mentor being rated. |
-
-   
-
-#### Response Example (Success):
-
-```http
-{
-  "rating": 4
-}
-
-```
-#### Response Example (Error):
-
-```http
-"Failed to rate mentor"
-```
 ### Mentor Details
 ####  Get mentors by selecting ratings (either1,2,3,4,5) and all the mentors along with their reviews
 
 
 ```http
-  GET /api/get-mentor-details/byrating/{rating}
+  "GET /api/get-mentor-details/byrating/{rating}"
 
 ```
 | Request Parameters  | Description                       |
@@ -181,31 +155,32 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 
 ```http
 [
-  {
-    "id": 1,
-    "name": "Abdur Rehman",
-    "overallRating": 4.0,
-    "reviews": [
-      {
+    {
         "id": 1,
-        "reviewText": "good",
-        "user": {
-          "id": 1,
-          "name": "shayan"
-        }
-      },
-      {
-        "id": 2,
-        "reviewText": "nice",
-        "user": {
-          "id": 2,
-          "name": "Khushhal"
-        }
-      }
-    ]
-  }
+        "name": "Abdur Rehman",
+        "overallRating": 4.0,
+        "reviews": [
+            {
+                "id": 1,
+                "rating": 4,
+                "reviewText": "good",
+                "user": {
+                    "id": 1,
+                    "name": "shayan"
+                }
+            },
+            {
+                "id": 2,
+                "rating": 4,
+                "reviewText": "nice",
+                "user": {
+                    "id": 1,
+                    "name": "Khushhal"
+                }
+            }
+        ]
+    }
 ]
-
 
 ```
 #### Response Example (Error):
