@@ -72,7 +72,6 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
   | `userId` (Long) |  ID of the user submitting the review. |
-
    | `mentorId` (long) | ID of the mentor being reviewed. |
    | `rating` (int) |user give a rating to a mentor out of 5 stars. |
    | `review` (String) | Review content. |
@@ -99,8 +98,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
-
-  | `mentorId` (Long) |  ID of the mentor. |
+| `mentorId` (Long) |  ID of the mentor. |
    | `userId` (long) | ID of the user creating the recommendation.|
    | `recommendationText` (String) | Recommendation content. |
 
@@ -125,8 +123,7 @@ The Mentor Review API is a comprehensive backend system designed to empower ment
 ```
 | Request Parameters  | Description                       |
  :------- | :-------------------------------- |
-
-  |`{sharable Link}` (String)|  Unique shareable link. |
+|`{sharable Link}` (String)|  Unique shareable link. |
 
    
 
